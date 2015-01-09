@@ -1,10 +1,8 @@
 #PNChart
 
-[![Build Status](https://travis-ci.org/kevinzhow/PNChart.png?branch=master)](https://travis-ci.org/kevinzhow/PNChart)
+**PNChart** for OS X (Cocoa).
 
-You can also find swift version at here https://github.com/kevinzhow/PNChart-Swift
-
-A simple and beautiful chart lib with **animation** used in [Piner](https://itunes.apple.com/us/app/piner/id637706410) and [CoinsMan](https://itunes.apple.com/us/app/coinsman/id772163893) for iOS
+You can also find [PNChart](https://github.com/kevinzhow/PNChart) or [PNChart-Swift](https://github.com/kevinzhow/PNChart-Swift) for iOS (CocoaTouch).
 
 [![](https://dl.dropboxusercontent.com/u/1599662/pnchart.gif)](https://dl.dropboxusercontent.com/u/1599662/pnchart.gif)
 
