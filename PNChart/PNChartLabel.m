@@ -10,22 +10,20 @@
 
 @implementation PNChartLabel
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-
+- (id)initWithFrame:(NSRect)frameRect {
+    self = [super initWithFrame:frameRect];
+    
     if (self) {
-        self.font                      = [UIFont boldSystemFontOfSize:11.0f];
-        self.backgroundColor           = [UIColor clearColor];
-        self.textAlignment             = NSTextAlignmentCenter;
-        self.userInteractionEnabled    = YES;
-        self.adjustsFontSizeToFitWidth = YES;
-        self.numberOfLines             = 0;
-        /* if you want to see ... in large labels un-comment this line
-        self.minimumScaleFactor        = 0.8;
-        */
+        self.font               = [NSFont boldSystemFontOfSize:10.0f];
+        self.backgroundColor    = [NSColor clearColor];
+        self.alignment          = NSCenterTextAlignment;
+        self.drawsBackground    = NO;
+        self.editable           = NO;
+        self.bordered           = NO;
+        self.bezeled            = NO;
+        self.selectable         = NO;
     }
-
+    
     return self;
 }
 

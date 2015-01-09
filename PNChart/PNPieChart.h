@@ -9,20 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "PNPieChartDataItem.h"
 
-@interface PNPieChart : UIView
+@interface PNPieChart : NSView
 
 - (id)initWithFrame:(CGRect)frame items:(NSArray *)items;
 
 @property (nonatomic, readonly) NSArray	*items;
 
 /** Default is 18-point Avenir Medium. */
-@property (nonatomic) UIFont  *descriptionTextFont;
+@property (nonatomic) NSFont  *descriptionTextFont;
 
 /** Default is white. */
-@property (nonatomic) UIColor *descriptionTextColor;
+@property (nonatomic) NSColor *descriptionTextColor;
 
 /** Default is black, with an alpha of 0.4. */
-@property (nonatomic) UIColor *descriptionTextShadowColor;
+@property (nonatomic) NSColor *descriptionTextShadowColor;
 
 /** Default is CGSizeMake(0, 1). */
 @property (nonatomic) CGSize   descriptionTextShadowOffset;

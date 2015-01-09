@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 kevinzhow. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 #import "PNChartDelegate.h"
 #import "PNScatterChartData.h"
 #import "PNScatterChartDataItem.h"
 
-@interface PNScatterChart : UIView
+@interface PNScatterChart : NSView
 
 @property (nonatomic, retain) id<PNChartDelegate> delegate;
 
@@ -21,7 +21,7 @@
 
 /** Controls whether to show the coordinate axis. Default is NO. */
 @property (nonatomic, getter = isShowCoordinateAxis) BOOL showCoordinateAxis;
-@property (nonatomic) UIColor *axisColor;
+@property (nonatomic) NSColor *axisColor;
 @property (nonatomic) CGFloat axisWidth;
 
 /** String formatter for float values in y-axis labels. If not set, defaults to @"%1.f" */
@@ -31,13 +31,13 @@
 @property (nonatomic) BOOL showLabel;
 
 /** Default is 18-point Avenir Medium. */
-@property (nonatomic) UIFont  *descriptionTextFont;
+@property (nonatomic) NSFont  *descriptionTextFont;
 
 /** Default is white. */
-@property (nonatomic) UIColor *descriptionTextColor;
+@property (nonatomic) NSColor *descriptionTextColor;
 
 /** Default is black, with an alpha of 0.4. */
-@property (nonatomic) UIColor *descriptionTextShadowColor;
+@property (nonatomic) NSColor *descriptionTextShadowColor;
 
 /** Default is CGSizeMake(0, 1). */
 @property (nonatomic) CGSize   descriptionTextShadowOffset;
@@ -54,7 +54,7 @@
 - (void) setAxisXWithMinimumValue:(CGFloat)minVal andMaxValue:(CGFloat)maxVal toTicks:(int)numberOfTicks;
 - (void) setAxisYWithMinimumValue:(CGFloat)minVal andMaxValue:(CGFloat)maxVal toTicks:(int)numberOfTicks;
 - (void) setup;
-- (void) drawLineFromPoint : (CGPoint) startPoint ToPoint : (CGPoint) endPoint WithLineWith : (CGFloat) lineWidth AndWithColor : (UIColor*) color;
+- (void) drawLineFromPoint : (CGPoint) startPoint ToPoint : (CGPoint) endPoint WithLineWith : (CGFloat) lineWidth AndWithColor : (NSColor*) color;
 
 /**
  * Update Chart Value

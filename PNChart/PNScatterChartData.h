@@ -19,8 +19,8 @@ typedef PNScatterChartDataItem *(^LCScatterChartDataGetter)(NSUInteger item);
 
 @interface PNScatterChartData : NSObject
 
-@property (strong) UIColor *fillColor;
-@property (strong) UIColor *strokeColor;
+@property (strong) NSColor *fillColor;
+@property (strong) NSColor *strokeColor;
 
 @property NSUInteger itemCount;
 @property (copy) LCScatterChartDataGetter getData;

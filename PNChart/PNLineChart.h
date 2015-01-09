@@ -6,11 +6,11 @@
 //  Copyright (c) 2013年 kevinzhow. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 #import "PNChartDelegate.h"
 
-@interface PNLineChart : UIView
+@interface PNLineChart : NSView
 
 /**
  * Draws the chart in an animated fashion.
@@ -32,16 +32,16 @@
 @property (nonatomic) NSMutableArray *yChartLabels;
 
 @property (nonatomic) CGFloat xLabelWidth;
-@property (nonatomic) UIFont *xLabelFont;
-@property (nonatomic) UIColor *xLabelColor;
+@property (nonatomic) NSFont *xLabelFont;
+@property (nonatomic) NSColor *xLabelColor;
 @property (nonatomic) CGFloat yValueMax;
 @property (nonatomic) CGFloat yFixedValueMax;
 @property (nonatomic) CGFloat yFixedValueMin;
 @property (nonatomic) CGFloat yValueMin;
 @property (nonatomic) NSInteger yLabelNum;
 @property (nonatomic) CGFloat yLabelHeight;
-@property (nonatomic) UIFont *yLabelFont;
-@property (nonatomic) UIColor *yLabelColor;
+@property (nonatomic) NSFont *yLabelFont;
+@property (nonatomic) NSColor *yLabelColor;
 @property (nonatomic) CGFloat chartCavanHeight;
 @property (nonatomic) CGFloat chartCavanWidth;
 @property (nonatomic) CGFloat chartMargin;
@@ -51,7 +51,7 @@
  * Controls whether to show the coordinate axis. Default is NO.
  */
 @property (nonatomic, getter = isShowCoordinateAxis) BOOL showCoordinateAxis;
-@property (nonatomic) UIColor *axisColor;
+@property (nonatomic) NSColor *axisColor;
 @property (nonatomic) CGFloat axisWidth;
 
 @property (nonatomic, strong) NSString *xUnit;

@@ -6,9 +6,10 @@
 //  Copyright (c) 2013年 kevinzhow. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Cocoa/Cocoa.h>
+#import <QuartzCore/QuartzCore.h>
 #import "PNColor.h"
-#import <UICountingLabel/UICountingLabel.h>
+#import "PNChartLabel.h"
 
 typedef NS_ENUM (NSUInteger, PNChartFormatType) {
     PNChartFormatTypePercent,
@@ -18,7 +19,7 @@ typedef NS_ENUM (NSUInteger, PNChartFormatType) {
 
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 
-@interface PNCircleChart : UIView
+@interface PNCircleChart : NSView
 
 - (void)strokeChart;
 - (void)growChartByAmount:(NSNumber *)growAmount;
@@ -34,14 +35,14 @@ typedef NS_ENUM (NSUInteger, PNChartFormatType) {
             current:(NSNumber *)current
           clockwise:(BOOL)clockwise
              shadow:(BOOL)hasBackgroundShadow
-        shadowColor:(UIColor *)backgroundShadowColor;
+        shadowColor:(NSColor *)backgroundShadowColor;
 
 - (id)initWithFrame:(CGRect)frame
               total:(NSNumber *)total
             current:(NSNumber *)current
           clockwise:(BOOL)clockwise
              shadow:(BOOL)hasBackgroundShadow
-        shadowColor:(UIColor *)backgroundShadowColor
+        shadowColor:(NSColor *)backgroundShadowColor
 displayCountingLabel:(BOOL)displayCountingLabel;
 
 - (id)initWithFrame:(CGRect)frame
@@ -49,13 +50,13 @@ displayCountingLabel:(BOOL)displayCountingLabel;
             current:(NSNumber *)current
           clockwise:(BOOL)clockwise
              shadow:(BOOL)hasBackgroundShadow
-        shadowColor:(UIColor *)backgroundShadowColor
+        shadowColor:(NSColor *)backgroundShadowColor
 displayCountingLabel:(BOOL)displayCountingLabel
   overrideLineWidth:(NSNumber *)overrideLineWidth;
 
-@property (strong, nonatomic) UICountingLabel *countingLabel;
-@property (nonatomic) UIColor *strokeColor;
-@property (nonatomic) UIColor *strokeColorGradientStart;
+@property (strong, nonatomic) PNChartLabel *countingLabel;
+@property (nonatomic) NSColor *strokeColor;
+@property (nonatomic) NSColor *strokeColorGradientStart;
 @property (nonatomic) NSNumber *total;
 @property (nonatomic) NSNumber *current;
 @property (nonatomic) NSNumber *lineWidth;

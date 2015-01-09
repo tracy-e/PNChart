@@ -12,7 +12,7 @@
 
 
 + (instancetype)dataItemWithValue:(CGFloat)value
-                            color:(UIColor*)color{
+                            color:(NSColor*)color{
 	PNPieChartDataItem *item = [PNPieChartDataItem new];
 	item.value = value;
 	item.color  = color;
@@ -20,7 +20,7 @@
 }
 
 + (instancetype)dataItemWithValue:(CGFloat)value
-                            color:(UIColor*)color
+                            color:(NSColor*)color
                       description:(NSString *)description {
 	PNPieChartDataItem *item = [PNPieChartDataItem dataItemWithValue:value color:color];
 	item.textDescription = description;

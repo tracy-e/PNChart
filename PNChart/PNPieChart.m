@@ -17,7 +17,7 @@
 @property (nonatomic) CGFloat outerCircleRadius;
 @property (nonatomic) CGFloat innerCircleRadius;
 
-@property (nonatomic) UIView  *contentView;
+@property (nonatomic) NSView  *contentView;
 @property (nonatomic) CAShapeLayer *pieLayer;
 @property (nonatomic) NSMutableArray *descriptionLabels;
 
@@ -28,8 +28,8 @@
 
 - (CAShapeLayer *)newCircleLayerWithRadius:(CGFloat)radius
                                borderWidth:(CGFloat)borderWidth
-                                 fillColor:(UIColor *)fillColor
-                               borderColor:(UIColor *)borderColor
+                                 fillColor:(NSColor *)fillColor
+                               borderColor:(NSColor *)borderColor
                            startPercentage:(CGFloat)startPercentage
                              endPercentage:(CGFloat)endPercentage;
 
@@ -46,9 +46,9 @@
 		_outerCircleRadius = CGRectGetWidth(self.bounds)/2;
 		_innerCircleRadius  = CGRectGetWidth(self.bounds)/6;
 		
-		_descriptionTextColor = [UIColor whiteColor];
-		_descriptionTextFont  = [UIFont fontWithName:@"Avenir-Medium" size:18.0];
-        _descriptionTextShadowColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
+		_descriptionTextColor = [NSColor whiteColor];
+		_descriptionTextFont  = [NSFont fontWithName:@"Avenir-Medium" size:18.0];
+        _descriptionTextShadowColor = [[NSColor blackColor] colorWithAlphaComponent:0.4];
         _descriptionTextShadowOffset =  CGSizeMake(0, 1);
 		_duration = 1.0;
         
@@ -64,7 +64,7 @@
 	_total       = 0;
 	
 	[_contentView removeFromSuperview];
-	_contentView = [[UIView alloc] initWithFrame:self.bounds];
+	_contentView = [[NSView alloc] initWithFrame:self.bounds];
 	[self addSubview:_contentView];
     [_descriptionLabels removeAllObjects];
 	_descriptionLabels = [NSMutableArray new];
@@ -93,7 +93,7 @@
 		
 		CAShapeLayer *currentPieLayer =	[self newCircleLayerWithRadius:_innerCircleRadius + (_outerCircleRadius - _innerCircleRadius)/2
                                                            borderWidth:_outerCircleRadius - _innerCircleRadius
-                                                             fillColor:[UIColor clearColor]
+                                                             fillColor:[NSColor clearColor]
                                                            borderColor:currentItem.color
                                                        startPercentage:startPercnetage
                                                          endPercentage:endPercentage];
@@ -150,7 +150,7 @@
     descriptionLabel.textAlignment = NSTextAlignmentCenter;
     descriptionLabel.center = center;
     descriptionLabel.alpha = 0;
-    descriptionLabel.backgroundColor = [UIColor clearColor];
+    descriptionLabel.backgroundColor = [NSColor clearColor];
 	return descriptionLabel;
 }
 
@@ -162,8 +162,8 @@
 
 - (CAShapeLayer *)newCircleLayerWithRadius:(CGFloat)radius
                                borderWidth:(CGFloat)borderWidth
-                                 fillColor:(UIColor *)fillColor
-                               borderColor:(UIColor *)borderColor
+                                 fillColor:(NSColor *)fillColor
+                               borderColor:(NSColor *)borderColor
                            startPercentage:(CGFloat)startPercentage
                              endPercentage:(CGFloat)endPercentage{
     CAShapeLayer *circle = [CAShapeLayer layer];
@@ -190,8 +190,8 @@
 - (void)maskChart{
 	CAShapeLayer *maskLayer =	[self newCircleLayerWithRadius:_innerCircleRadius + (_outerCircleRadius - _innerCircleRadius)/2
                                                  borderWidth:_outerCircleRadius - _innerCircleRadius
-                                                   fillColor:[UIColor clearColor]
-                                                 borderColor:[UIColor blackColor]
+                                                   fillColor:[NSColor clearColor]
+                                                 borderColor:[NSColor blackColor]
                                              startPercentage:0
                                                endPercentage:1];
 	
@@ -219,7 +219,7 @@
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
     [_descriptionLabels enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [UIView animateWithDuration:0.2 animations:^(){
+        [NSView animateWithDuration:0.2 animations:^(){
             [obj setAlpha:1];
         }];
     }];

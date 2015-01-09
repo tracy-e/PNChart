@@ -16,7 +16,7 @@
     NSMutableArray *_yChartLabels;
 }
 
-- (UIColor *)barColorAtIndex:(NSUInteger)index;
+- (NSColor *)barColorAtIndex:(NSUInteger)index;
 
 @end
 
@@ -45,12 +45,12 @@
 
 - (void)setupDefaultValues
 {
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [NSColor whiteColor];
     self.clipsToBounds   = YES;
     _showLabel           = YES;
     _barBackgroundColor  = PNLightGrey;
-    _labelTextColor      = [UIColor grayColor];
-    _labelFont           = [UIFont systemFontOfSize:11.0f];
+    _labelTextColor      = [NSColor grayColor];
+    _labelFont           = [NSFont systemFontOfSize:11.0f];
     _xChartLabels        = [NSMutableArray array];
     _yChartLabels        = [NSMutableArray array];
     _bars                = [NSMutableArray array];
@@ -165,7 +165,7 @@
 }
 
 
-- (void)setStrokeColor:(UIColor *)strokeColor
+- (void)setStrokeColor:(NSColor *)strokeColor
 {
     _strokeColor = strokeColor;
 }
@@ -259,7 +259,7 @@
     if (_showChartBorder) {
         _chartBottomLine = [CAShapeLayer layer];
         _chartBottomLine.lineCap      = kCALineCapButt;
-        _chartBottomLine.fillColor    = [[UIColor whiteColor] CGColor];
+        _chartBottomLine.fillColor    = [[NSColor whiteColor] CGColor];
         _chartBottomLine.lineWidth    = 1.0;
         _chartBottomLine.strokeEnd    = 0.0;
 
@@ -291,7 +291,7 @@
 
         _chartLeftLine = [CAShapeLayer layer];
         _chartLeftLine.lineCap      = kCALineCapButt;
-        _chartLeftLine.fillColor    = [[UIColor whiteColor] CGColor];
+        _chartLeftLine.fillColor    = [[NSColor whiteColor] CGColor];
         _chartLeftLine.lineWidth    = 1.0;
         _chartLeftLine.strokeEnd    = 0.0;
 
@@ -333,7 +333,7 @@
 
 #pragma mark - Class extension methods
 
-- (UIColor *)barColorAtIndex:(NSUInteger)index
+- (NSColor *)barColorAtIndex:(NSUInteger)index
 {
     if ([self.strokeColors count] == [self.yValues count]) {
         return self.strokeColors[index];
@@ -358,7 +358,7 @@
     //Get the point user touched
     UITouch *touch = [touches anyObject];
     CGPoint touchPoint = [touch locationInView:self];
-    UIView *subview = [self hitTest:touchPoint withEvent:nil];
+    NSView *subview = [self hitTest:touchPoint withEvent:nil];
 
     if ([subview isKindOfClass:[PNBar class]] && [self.delegate respondsToSelector:@selector(userClickedOnBarAtIndex:)]) {
         [self.delegate userClickedOnBarAtIndex:subview.tag];

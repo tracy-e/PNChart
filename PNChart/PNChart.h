@@ -7,7 +7,6 @@
 //  Copyright (c) 2013年 kevinzhow. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "PNChart.h"
 #import "PNColor.h"
 #import "PNLineChart.h"

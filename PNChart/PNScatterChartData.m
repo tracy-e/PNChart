@@ -23,8 +23,8 @@
 - (void)setupDefaultValues
 {
     _inflexionPointStyle = PNScatterChartPointStyleCircle;
-    _fillColor = [UIColor grayColor];
-    _strokeColor = [UIColor clearColor];
+    _fillColor = [NSColor grayColor];
+    _strokeColor = [NSColor clearColor];
     _size = 3 ;
 }
 

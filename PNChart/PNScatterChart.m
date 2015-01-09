@@ -82,7 +82,7 @@
 - (void)setupDefaultValues
 {
     // Initialization code
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [NSColor whiteColor];
     self.clipsToBounds   = YES;
     _showLabel           = YES;
     _isForUpdate         = NO;
@@ -90,7 +90,7 @@
     
     // Coordinate Axis Default Values
     _showCoordinateAxis = YES;
-    _axisColor = [UIColor colorWithRed:0.4f green:0.4f blue:0.4f alpha:1.f];
+    _axisColor = [NSColor colorWithRed:0.4f green:0.4f blue:0.4f alpha:1.f];
     _axisWidth = 1.f;
     
     // Initialization code
@@ -98,7 +98,7 @@
     _AxisY_Margin = 30 ;
     
 //    self.frame = CGRectMake((SCREEN_WIDTH - self.frame.size.width) / 2, 200, self.frame.size.width, self.frame.size.height) ;
-    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = [NSColor clearColor];
     
     _startPoint.y = self.frame.size.height - self.AxisY_Margin ;
     _startPoint.x = self.AxisX_Margin ;
@@ -106,9 +106,9 @@
     _axisX_labels = [NSMutableArray array];
     _axisY_labels = [NSMutableArray array];
     
-    _descriptionTextColor = [UIColor blackColor];
-    _descriptionTextFont  = [UIFont fontWithName:@"Avenir-Medium" size:9.0];
-    _descriptionTextShadowColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
+    _descriptionTextColor = [NSColor blackColor];
+    _descriptionTextFont  = [NSFont fontWithName:@"Avenir-Medium" size:9.0];
+    _descriptionTextShadowColor = [[NSColor blackColor] colorWithAlphaComponent:0.4];
     _descriptionTextShadowOffset =  CGSizeMake(0, 1);
     _duration = 1.0;
     
@@ -183,7 +183,7 @@
     descriptionLabel.shadowColor = _descriptionTextShadowColor;
     descriptionLabel.shadowOffset = _descriptionTextShadowOffset;
     descriptionLabel.textAlignment = NSTextAlignmentCenter;
-    descriptionLabel.backgroundColor = [UIColor clearColor];
+    descriptionLabel.backgroundColor = [NSColor clearColor];
     [self addSubview:descriptionLabel];
 }
 
@@ -352,7 +352,7 @@
     return nil ;
 }
 
-- (void) drawLineFromPoint : (CGPoint) startPoint ToPoint : (CGPoint) endPoint WithLineWith : (CGFloat) lineWidth AndWithColor : (UIColor*) color{
+- (void) drawLineFromPoint : (CGPoint) startPoint ToPoint : (CGPoint) endPoint WithLineWith : (CGFloat) lineWidth AndWithColor : (NSColor*) color{
     
     // call the same method on a background thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

@@ -6,17 +6,17 @@
 //  Copyright (c) 2013年 kevinzhow. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface PNBar : UIView
+@interface PNBar : NSView
 
 - (void)rollBack;
 
 @property (nonatomic) float grade;
 @property (nonatomic) CAShapeLayer *chartLine;
-@property (nonatomic) UIColor *barColor;
-@property (nonatomic) UIColor *barColorGradientStart;
+@property (nonatomic) NSColor *barColor;
+@property (nonatomic) NSColor *barColorGradientStart;
 @property (nonatomic) CGFloat barRadius;
 @property (nonatomic) CAShapeLayer *gradientMask;
 

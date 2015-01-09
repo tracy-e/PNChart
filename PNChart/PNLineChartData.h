@@ -3,7 +3,7 @@
 // Copyright (c) 2013 kevinzhow. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
 typedef NS_ENUM(NSUInteger, PNLineChartPointStyle) {
     PNLineChartPointStyleNone = 0,
@@ -18,7 +18,7 @@ typedef PNLineChartDataItem *(^LCLineChartDataGetter)(NSUInteger item);
 
 @interface PNLineChartData : NSObject
 
-@property (strong) UIColor *color;
+@property (strong) NSColor *color;
 @property (nonatomic) CGFloat alpha;
 @property NSUInteger itemCount;
 @property (copy) LCLineChartDataGetter getData;

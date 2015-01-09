@@ -6,8 +6,8 @@
 //  Copyright (c) 2013年 kevinzhow. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Cocoa/Cocoa.h>
 
-@interface PNChartLabel : UILabel
+@interface PNChartLabel : NSTextField
 
 @end

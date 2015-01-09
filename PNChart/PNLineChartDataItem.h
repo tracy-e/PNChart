@@ -3,8 +3,8 @@
 // Copyright (c) 2013 kevinzhow. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 
+#import <Cocoa/Cocoa.h>
 
 @interface PNLineChartDataItem : NSObject
 

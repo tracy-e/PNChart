@@ -18,10 +18,9 @@
     if (self) {
         _chartLine              = [CAShapeLayer layer];
         _chartLine.lineCap      = kCALineCapButt;
-        _chartLine.fillColor    = [[UIColor whiteColor] CGColor];
+        _chartLine.fillColor    = [[NSColor whiteColor] CGColor];
         _chartLine.lineWidth    = self.frame.size.width;
         _chartLine.strokeEnd    = 0.0;
-        self.clipsToBounds      = YES;
         [self.layer addSublayer:_chartLine];
         self.barRadius = 2.0;
     }
@@ -91,8 +90,8 @@
             
             // Add gradient
             self.gradientMask = [CAShapeLayer layer];
-            self.gradientMask.fillColor = [[UIColor clearColor] CGColor];
-            self.gradientMask.strokeColor = [[UIColor blackColor] CGColor];
+            self.gradientMask.fillColor = [[NSColor clearColor] CGColor];
+            self.gradientMask.strokeColor = [[NSColor blackColor] CGColor];
             self.gradientMask.lineWidth    = self.frame.size.width;
             self.gradientMask.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
             self.gradientMask.path = progressline.CGPath;
@@ -102,7 +101,7 @@
             gradientLayer.startPoint = CGPointMake(0.5,1.0);
             gradientLayer.endPoint = CGPointMake(0.5,0.0);
             gradientLayer.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
-            UIColor *endColor = (_barColor ? _barColor : [UIColor greenColor]);
+            NSColor *endColor = (_barColor ? _barColor : [NSColor greenColor]);
             NSArray *colors = @[
                                 (id)_barColorGradientStart.CGColor,
                                 (id)endColor.CGColor
@@ -125,12 +124,12 @@
 
 - (void)rollBack
 {
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations: ^{
-        _chartLine.strokeColor = [UIColor clearColor].CGColor;
+    [NSView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations: ^{
+        _chartLine.strokeColor = [NSColor clearColor].CGColor;
     } completion:nil];
 }
 
-- (void)setBarColorGradientStart:(UIColor *)barColorGradientStart
+- (void)setBarColorGradientStart:(NSColor *)barColorGradientStart
 {
     // Set gradient color, remove any existing sublayer first
     for (CALayer *sublayer in [_chartLine sublayers]) {

@@ -6,7 +6,6 @@
 //  Copyright (c) 2013年 kevinzhow. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "PNChartDelegate.h"
 #import "PNBar.h"
 
@@ -17,7 +16,7 @@
 
 typedef NSString *(^PNYLabelFormatter)(CGFloat yLabelValue);
 
-@interface PNBarChart : UIView
+@interface PNBarChart : NSView
 
 /**
  * Draws the chart in an animated fashion.
@@ -32,7 +31,7 @@ typedef NSString *(^PNYLabelFormatter)(CGFloat yLabelValue);
 
 @property (nonatomic) CGFloat xLabelWidth;
 @property (nonatomic) int yValueMax;
-@property (nonatomic) UIColor *strokeColor;
+@property (nonatomic) NSColor *strokeColor;
 @property (nonatomic) NSArray *strokeColors;
 
 
@@ -68,13 +67,13 @@ typedef NSString *(^PNYLabelFormatter)(CGFloat yLabelValue);
 @property (nonatomic) CGFloat labelMarginTop;
 
 /** Background color of all bars in the chart. */
-@property (nonatomic) UIColor * barBackgroundColor;
+@property (nonatomic) NSColor * barBackgroundColor;
 
 /** Text color for all bars in the chart. */
-@property (nonatomic) UIColor * labelTextColor;
+@property (nonatomic) NSColor * labelTextColor;
 
 /** Font for all bars in the chart. */
-@property (nonatomic) UIFont * labelFont;
+@property (nonatomic) NSFont * labelFont;
 
 /** How many labels on the x-axis to skip in between displaying labels. */
 @property (nonatomic) NSInteger xLabelSkip;
@@ -89,7 +88,7 @@ typedef NSString *(^PNYLabelFormatter)(CGFloat yLabelValue);
 @property (nonatomic) CGFloat yMinValue;
 
 /** Controls whether each bar should have a gradient fill. */
-@property (nonatomic) UIColor *barColorGradientStart;
+@property (nonatomic) NSColor *barColorGradientStart;
 
 /** Controls whether text for x-axis be straight or rotate 45 degree. */
 @property (nonatomic) BOOL rotateForXAxisText;
