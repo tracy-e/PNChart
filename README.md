@@ -82,7 +82,7 @@ circleChart.backgroundColor = [UIColor clearColor];
 ```
 
 
-![Pie Chart](https://raw.githubusercontent.com/tracy-e/PNChart/master/Images/LineChart.png)
+![Pie Chart](https://raw.githubusercontent.com/tracy-e/PNChart/master/Images/PieChart.png)
 
 ```objective-c
 # import "PNChart.h"
