@@ -31,8 +31,7 @@ You will need LLVM 3.0 or later in order to build PNChart.
 
 ### Copy the PNChart folder to your project
 
-
-[![](https://dl.dropboxusercontent.com/u/1599662/line.png)](https://dl.dropboxusercontent.com/u/1599662/line.png)
+![Line Chart](https://raw.githubusercontent.com/tracy-e/PNChart/master/Images/LineChart.png)
 
 ```objective-c
 #import "PNChart.h"
@@ -65,7 +64,7 @@ lineChart.chartData = @[data01, data02];
 
 ```
 
-[![](https://dl.dropboxusercontent.com/u/1599662/bar.png)](https://dl.dropboxusercontent.com/u/1599662/bar.png)
+![Bar Chart](https://raw.githubusercontent.com/tracy-e/PNChart/master/Images/BarChart.png)
 
 ```objective-c
 #import "PNChart.h"
@@ -78,8 +77,7 @@ PNBarChart * barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(0, 135.0, S
 
 ```
 
-[![](https://dl.dropboxusercontent.com/u/1599662/circle.png)](https://dl.dropboxusercontent.com/u/1599662/circle.png)
-
+![Circle Chart](https://raw.githubusercontent.com/tracy-e/PNChart/master/Images/CircleChart.png)
 
 ```objective-c
 #import "PNChart.h"
