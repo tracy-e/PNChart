@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 kevinzhow. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Cocoa/Cocoa.h>
 #import "PNPieChartDataItem.h"
 
 @interface PNPieChart : NSView

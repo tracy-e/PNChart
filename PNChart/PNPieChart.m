@@ -7,6 +7,10 @@
 //
 
 #import "PNPieChart.h"
+#import <QuartzCore/QuartzCore.h>
+#import "PNChartLabel.h"
+
+@class PNChartLabel;
 
 @interface PNPieChart()
 
@@ -23,7 +27,7 @@
 
 - (void)loadDefault;
 
-- (UILabel *)descriptionLabelForItemAtIndex:(NSUInteger)index;
+- (PNChartLabel *)descriptionLabelForItemAtIndex:(NSUInteger)index;
 - (PNPieChartDataItem *)dataItemForIndex:(NSUInteger)index;
 
 - (CAShapeLayer *)newCircleLayerWithRadius:(CGFloat)radius
@@ -42,6 +46,7 @@
 -(id)initWithFrame:(CGRect)frame items:(NSArray *)items{
 	self = [self initWithFrame:frame];
 	if(self){
+        self.wantsLayer = YES;
 		_items = [NSArray arrayWithArray:items];
 		_outerCircleRadius = CGRectGetWidth(self.bounds)/2;
 		_innerCircleRadius  = CGRectGetWidth(self.bounds)/6;
@@ -108,14 +113,14 @@
 	currentValue = 0;
     for (int i = 0; i < _items.count; i++) {
 		currentItem = [self dataItemForIndex:i];
-		UILabel *descriptionLabel =  [self descriptionLabelForItemAtIndex:i];
+		PNChartLabel *descriptionLabel = [self descriptionLabelForItemAtIndex:i];
 		[_contentView addSubview:descriptionLabel];
 		currentValue+=currentItem.value;
         [_descriptionLabels addObject:descriptionLabel];
 	}
 }
 
-- (UILabel *)descriptionLabelForItemAtIndex:(NSUInteger)index{
+- (PNChartLabel *)descriptionLabelForItemAtIndex:(NSUInteger)index{
 	PNPieChartDataItem *currentDataItem = [self dataItemForIndex:index];
     CGFloat distance = _innerCircleRadius + (_outerCircleRadius - _innerCircleRadius) / 2;
     CGFloat centerPercentage =(_currentTotal + currentDataItem.value /2 ) / _total;
@@ -123,33 +128,35 @@
     
 	_currentTotal += currentDataItem.value;
 	
-    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 80)];
+    PNChartLabel *descriptionLabel = [[PNChartLabel alloc] initWithFrame:CGRectMake(0, 0, 100, 80)];
     NSString *titleText = currentDataItem.textDescription;
     if(!titleText){
         titleText = [NSString stringWithFormat:@"%.0f%%",currentDataItem.value/ _total * 100];
-        descriptionLabel.text = titleText ;
+        descriptionLabel.stringValue = titleText ;
     }
     else {
         NSString* str = [NSString stringWithFormat:@"%.0f%%\n",currentDataItem.value/ _total * 100];
         str = [str stringByAppendingString:titleText];
-        descriptionLabel.text = str ;
+        descriptionLabel.stringValue = str ;
     }
     
     CGPoint center = CGPointMake(_outerCircleRadius + distance * sin(rad),
-                                 _outerCircleRadius - distance * cos(rad));
+                                 _outerCircleRadius + distance * cos(rad));
     
     descriptionLabel.font = _descriptionTextFont;
-    CGSize labelSize = [descriptionLabel.text sizeWithAttributes:@{NSFontAttributeName:descriptionLabel.font}];
+//    CGSize labelSize = [descriptionLabel.text sizeWithAttributes:@{NSFontAttributeName:descriptionLabel.font}];
+    //TODO:
+    CGSize labelSize = CGSizeMake(80, 40);
     descriptionLabel.frame = CGRectMake(
                              descriptionLabel.frame.origin.x, descriptionLabel.frame.origin.y,
                              descriptionLabel.frame.size.width, labelSize.height);
-    descriptionLabel.numberOfLines = 0;
+    descriptionLabel.usesSingleLineMode = NO;
     descriptionLabel.textColor = _descriptionTextColor;
-    descriptionLabel.shadowColor = _descriptionTextShadowColor;
-    descriptionLabel.shadowOffset = _descriptionTextShadowOffset;
-    descriptionLabel.textAlignment = NSTextAlignmentCenter;
-    descriptionLabel.center = center;
-    descriptionLabel.alpha = 0;
+    descriptionLabel.layer.shadowColor = [_descriptionTextShadowColor CGColor];
+    descriptionLabel.layer.shadowOffset = _descriptionTextShadowOffset;
+    descriptionLabel.alignment = NSCenterTextAlignment;
+    descriptionLabel.frame = CGRectMake(center.x - labelSize.width / 2, center.y - labelSize.height / 2, labelSize.width, labelSize.height);
+    descriptionLabel.alphaValue = 0;
     descriptionLabel.backgroundColor = [NSColor clearColor];
 	return descriptionLabel;
 }
@@ -169,19 +176,16 @@
     CAShapeLayer *circle = [CAShapeLayer layer];
     
     CGPoint center = CGPointMake(CGRectGetMidX(self.bounds),CGRectGetMidY(self.bounds));
-    
-    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center
-                                                        radius:radius
-                                                    startAngle:-M_PI_2
-                                                      endAngle:M_PI_2 * 3
-                                                     clockwise:YES];
+
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathAddArc(path, NULL, center.x, center.y, radius, M_PI_2, -M_PI_2 * 3, YES);
     
     circle.fillColor   = fillColor.CGColor;
     circle.strokeColor = borderColor.CGColor;
     circle.strokeStart = startPercentage;
     circle.strokeEnd   = endPercentage;
     circle.lineWidth   = borderWidth;
-    circle.path        = path.CGPath;
+    circle.path        = path;
     
 	
 	return circle;
@@ -218,10 +222,11 @@
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
-    [_descriptionLabels enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [NSView animateWithDuration:0.2 animations:^(){
-            [obj setAlpha:1];
-        }];
+    [_descriptionLabels enumerateObjectsUsingBlock:^(NSView *view, NSUInteger idx, BOOL *stop) {
+        [NSAnimationContext beginGrouping];
+        [[NSAnimationContext currentContext] setDuration:0.2];
+        view.alphaValue = 1;
+        [NSAnimationContext endGrouping];
     }];
 }
 @end

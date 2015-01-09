@@ -7,7 +7,9 @@
 //
 
 #import "ChartViewController.h"
+
 #import "PNCircleChart.h"
+
 #import "PNLineChart.h"
 #import "PNLineChartData.h"
 #import "PNLineChartDataItem.h"
@@ -15,11 +17,15 @@
 #import "PNBarChart.h"
 #import "PNBar.h"
 
+#import "PNPieChart.h"
+#import "PNPieChartDataItem.h"
+
 @interface ChartViewController ()
 
 @property (nonatomic) PNLineChart *lineChart;
 @property (nonatomic) PNCircleChart *circleChart;
 @property (nonatomic) PNBarChart *barChart;
+@property (nonatomic) PNPieChart *pieChart;
 
 @end
 
@@ -41,6 +47,7 @@
     [self.lineChart removeFromSuperview];
     [self.barChart removeFromSuperview];
     [self.circleChart removeFromSuperview];
+    [self.pieChart removeFromSuperview];
     
     if ([self.title isEqualToString:@"Line Chart"]) {
 
@@ -126,6 +133,20 @@
         [self.view addSubview:self.circleChart];
         
         self.updateButton.hidden = NO;
+    } else if ([self.title isEqualToString:@"Pie Chart"]) {
+        
+        NSArray *items = @[[PNPieChartDataItem dataItemWithValue:10 color:PNLightGreen],
+                           [PNPieChartDataItem dataItemWithValue:20 color:PNFreshGreen description:@"WWDC"],
+                           [PNPieChartDataItem dataItemWithValue:40 color:PNDeepGreen description:@"GOOG I/O"],
+                           ];
+        
+        self.pieChart = [[PNPieChart alloc] initWithFrame:CGRectMake(100, 100, 200.0, 200.0) items:items];
+        self.pieChart.descriptionTextColor = [NSColor whiteColor];
+        self.pieChart.descriptionTextFont  = [NSFont fontWithName:@"Avenir-Medium" size:11.0];
+        self.pieChart.descriptionTextShadowColor = [NSColor clearColor];
+        [self.pieChart strokeChart];
+        
+        [self.view addSubview:self.pieChart];
     }
 }
 
