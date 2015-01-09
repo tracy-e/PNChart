@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F9887E31A605A3900536F26 /* PNBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9887E01A605A3900536F26 /* PNBar.m */; };
+		9F9887E41A605A3900536F26 /* PNBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9887E21A605A3900536F26 /* PNBarChart.m */; };
 		9FFCB1E81A6038EC00A9E4F7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFCB1E71A6038EC00A9E4F7 /* AppDelegate.m */; };
 		9FFCB1EA1A6038EC00A9E4F7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFCB1E91A6038EC00A9E4F7 /* main.m */; };
 		9FFCB1ED1A6038EC00A9E4F7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFCB1EC1A6038EC00A9E4F7 /* ViewController.m */; };
@@ -34,6 +36,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F9887DF1A605A3900536F26 /* PNBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBar.h; sourceTree = "<group>"; };
+		9F9887E01A605A3900536F26 /* PNBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNBar.m; sourceTree = "<group>"; };
+		9F9887E11A605A3900536F26 /* PNBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBarChart.h; sourceTree = "<group>"; };
+		9F9887E21A605A3900536F26 /* PNBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNBarChart.m; sourceTree = "<group>"; };
 		9FFCB1E11A6038EC00A9E4F7 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FFCB1E51A6038EC00A9E4F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FFCB1E61A6038EC00A9E4F7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -146,6 +152,10 @@
 		9FFCB2071A6038FF00A9E4F7 /* PNChart */ = {
 			isa = PBXGroup;
 			children = (
+				9F9887DF1A605A3900536F26 /* PNBar.h */,
+				9F9887E01A605A3900536F26 /* PNBar.m */,
+				9F9887E11A605A3900536F26 /* PNBarChart.h */,
+				9F9887E21A605A3900536F26 /* PNBarChart.m */,
 				9FFCB20E1A6038FF00A9E4F7 /* PNChartLabel.h */,
 				9FFCB20F1A6038FF00A9E4F7 /* PNChartLabel.m */,
 				9FFCB2101A6038FF00A9E4F7 /* PNCircleChart.h */,
@@ -271,8 +281,10 @@
 				9FFCB1ED1A6038EC00A9E4F7 /* ViewController.m in Sources */,
 				9FFCB23E1A6043E300A9E4F7 /* PNLineChartData.m in Sources */,
 				9FFCB2261A6038FF00A9E4F7 /* PNChartLabel.m in Sources */,
+				9F9887E41A605A3900536F26 /* PNBarChart.m in Sources */,
 				9FFCB2361A603D1D00A9E4F7 /* ChartViewController.m in Sources */,
 				9FFCB1EA1A6038EC00A9E4F7 /* main.m in Sources */,
+				9F9887E31A605A3900536F26 /* PNBar.m in Sources */,
 				9FFCB1E81A6038EC00A9E4F7 /* AppDelegate.m in Sources */,
 				9FFCB2271A6038FF00A9E4F7 /* PNCircleChart.m in Sources */,
 			);
@@ -461,6 +473,7 @@
 				9FFCB2031A6038EC00A9E4F7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9FFCB2041A6038EC00A9E4F7 /* Build configuration list for PBXNativeTarget "SampleTests" */ = {
 			isa = XCConfigurationList;
@@ -469,6 +482,7 @@
 				9FFCB2061A6038EC00A9E4F7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

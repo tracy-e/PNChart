@@ -8,6 +8,7 @@
 
 #import "PNBar.h"
 #import "PNColor.h"
+#import "NSBezierPath+CGPath.h"
 
 @implementation PNBar
 
@@ -16,6 +17,7 @@
     self = [super initWithFrame:frame];
 
     if (self) {
+        self.wantsLayer = YES;
         _chartLine              = [CAShapeLayer layer];
         _chartLine.lineCap      = kCALineCapButt;
         _chartLine.fillColor    = [[NSColor whiteColor] CGColor];
@@ -34,20 +36,26 @@
     self.layer.cornerRadius = _barRadius;
 }
 
+- (void)setBackgroundColor:(NSColor *)backgroundColor {
+    self.layer.backgroundColor = [backgroundColor CGColor];
+}
+
+- (NSColor *)backgroundColor {
+    return [NSColor colorWithCGColor:self.layer.backgroundColor];
+}
 
 - (void)setGrade:(float)grade
 {
     NSLog(@"New garde %f",grade);
 
-    UIBezierPath *progressline = [UIBezierPath bezierPath];
+    NSBezierPath *progressline = [NSBezierPath bezierPath];
 
-    [progressline moveToPoint:CGPointMake(self.frame.size.width / 2.0, self.frame.size.height)];
-    [progressline addLineToPoint:CGPointMake(self.frame.size.width / 2.0, (1 - grade) * self.frame.size.height)];
+    [progressline moveToPoint:CGPointMake(self.frame.size.width / 2.0, 0)];
+    [progressline lineToPoint:CGPointMake(self.frame.size.width / 2.0, grade * self.frame.size.height)];
 
     [progressline setLineWidth:1.0];
-    [progressline setLineCapStyle:kCGLineCapSquare];
-
-
+    [progressline setLineCapStyle:NSSquareLineCapStyle];
+    
     if (_barColor) {
         _chartLine.strokeColor = [_barColor CGColor];
     }
@@ -59,19 +67,19 @@
         
         CABasicAnimation * pathAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
         pathAnimation.fromValue = (id)_chartLine.path;
-        pathAnimation.toValue = (id)[progressline CGPath];
+        pathAnimation.toValue = (__bridge id)[progressline CGPath];
         pathAnimation.duration = 0.5f;
         pathAnimation.autoreverses = NO;
         pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         [_chartLine addAnimation:pathAnimation forKey:@"animationKey"];
         
-        _chartLine.path = progressline.CGPath;
+        _chartLine.path = [progressline CGPath];
         
         if (_barColorGradientStart) {
             
             // Add gradient
             [self.gradientMask addAnimation:pathAnimation forKey:@"animationKey"];
-            self.gradientMask.path = progressline.CGPath;
+            self.gradientMask.path = [progressline CGPath];
         }
         
     }else{
@@ -84,7 +92,7 @@
         
         _chartLine.strokeEnd = 1.0;
         
-        _chartLine.path = progressline.CGPath;
+        _chartLine.path = [progressline CGPath];
         // Check if user wants to add a gradient from the start color to the bar color
         if (_barColorGradientStart) {
             
@@ -94,12 +102,12 @@
             self.gradientMask.strokeColor = [[NSColor blackColor] CGColor];
             self.gradientMask.lineWidth    = self.frame.size.width;
             self.gradientMask.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
-            self.gradientMask.path = progressline.CGPath;
+            self.gradientMask.path = [progressline CGPath];
             
             
             CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-            gradientLayer.startPoint = CGPointMake(0.5,1.0);
-            gradientLayer.endPoint = CGPointMake(0.5,0.0);
+            gradientLayer.startPoint = CGPointMake(0.5,0.0);
+            gradientLayer.endPoint = CGPointMake(0.5,1.0);
             gradientLayer.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
             NSColor *endColor = (_barColor ? _barColor : [NSColor greenColor]);
             NSArray *colors = @[
@@ -124,9 +132,10 @@
 
 - (void)rollBack
 {
-    [NSView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations: ^{
-        _chartLine.strokeColor = [NSColor clearColor].CGColor;
-    } completion:nil];
+    [NSAnimationContext beginGrouping];
+    [[NSAnimationContext currentContext] setDuration:0.3];
+    _chartLine.strokeColor = [NSColor clearColor].CGColor;
+    [NSAnimationContext endGrouping];
 }
 
 - (void)setBarColorGradientStart:(NSColor *)barColorGradientStart
@@ -140,16 +149,5 @@
     [self setGrade:_grade];
 
 }
-
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    CGContextRef context = UIGraphicsGetCurrentContext();
-
-    CGContextSetFillColorWithColor(context, self.backgroundColor.CGColor);
-    CGContextFillRect(context, rect);
-}
-
 
 @end

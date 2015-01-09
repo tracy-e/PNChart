@@ -9,11 +9,12 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface PNBar : NSView
+@interface PNBar : NSControl
 
 - (void)rollBack;
 
 @property (nonatomic) float grade;
+@property (nonatomic) NSColor *backgroundColor;
 @property (nonatomic) CAShapeLayer *chartLine;
 @property (nonatomic) NSColor *barColor;
 @property (nonatomic) NSColor *barColorGradientStart;

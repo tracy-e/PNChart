@@ -12,10 +12,14 @@
 #import "PNLineChartData.h"
 #import "PNLineChartDataItem.h"
 
+#import "PNBarChart.h"
+#import "PNBar.h"
+
 @interface ChartViewController ()
 
 @property (nonatomic) PNLineChart *lineChart;
 @property (nonatomic) PNCircleChart *circleChart;
+@property (nonatomic) PNBarChart *barChart;
 
 @end
 
@@ -35,6 +39,7 @@
 - (void)loadChartView {
     self.updateButton.hidden = YES;
     [self.lineChart removeFromSuperview];
+    [self.barChart removeFromSuperview];
     [self.circleChart removeFromSuperview];
     
     if ([self.title isEqualToString:@"Line Chart"]) {
@@ -83,6 +88,30 @@
         
         self.updateButton.hidden = NO;
 
+    } else if ([self.title isEqualToString:@"Bar Chart"]) {
+    
+        self.barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(50, 135.0, 320, 200.0)];
+        self.barChart.yLabelFormatter = ^(CGFloat yValue){
+            CGFloat yValueParsed = yValue;
+            NSString * labelText = [NSString stringWithFormat:@"%1.f",yValueParsed];
+            return labelText;
+        };
+        self.barChart.labelMarginTop = 5.0;
+        [self.barChart setXLabels:@[@"SEP 1",@"SEP 2",@"SEP 3",@"SEP 4",@"SEP 5",@"SEP 6",@"SEP 7"]];
+        self.barChart.rotateForXAxisText = true ;
+        [self.barChart setYValues:@[@1,@24,@12,@18,@30,@10,@21]];
+        [self.barChart setStrokeColors:@[PNGreen,PNGreen,PNRed,PNGreen,PNGreen,PNYellow,PNGreen]];
+        // Adding gradient
+        self.barChart.barColorGradientStart = [NSColor blueColor];
+        
+        [self.barChart strokeChart];
+        
+//        self.barChart.delegate = self;
+        
+        [self.view addSubview:self.barChart];
+        
+        self.updateButton.hidden = NO;
+        
     } else if ([self.title isEqualToString:@"Circle Chart"]) {
         
         self.circleChart = [[PNCircleChart alloc] initWithFrame:CGRectMake(0, 150, CGRectGetWidth(self.view.bounds), 150)
@@ -128,6 +157,11 @@
         [self.lineChart setXLabels:@[@"DEC 1",@"DEC 2",@"DEC 3",@"DEC 4",@"DEC 5",@"DEC 6",@"DEC 7"]];
         [self.lineChart updateChartData:@[data01, data02]];
 
+    } else if ([self.title isEqualToString:@"Bar Chart"]) {
+        
+        [self.barChart setXLabels:@[@"Jan 1",@"Jan 2",@"Jan 3",@"Jan 4",@"Jan 5",@"Jan 6",@"Jan 7"]];
+        [self.barChart updateChartData:@[@(arc4random() % 30),@(arc4random() % 30),@(arc4random() % 30),@(arc4random() % 30),@(arc4random() % 30),@(arc4random() % 30),@(arc4random() % 30)]];
+        
     } else if ([self.title isEqualToString:@"Circle Chart"]) {
         
         [self.circleChart updateChartByCurrent:@(arc4random() % 100)];

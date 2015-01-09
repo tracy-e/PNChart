@@ -9,7 +9,7 @@
 #import "PNBarChart.h"
 #import "PNColor.h"
 #import "PNChartLabel.h"
-
+#import "NSBezierPath+CGPath.h"
 
 @interface PNBarChart () {
     NSMutableArray *_xChartLabels;
@@ -35,18 +35,17 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-
+    
     if (self) {
         [self setupDefaultValues];
     }
-
+    
     return self;
 }
 
 - (void)setupDefaultValues
 {
-    self.backgroundColor = [NSColor whiteColor];
-    self.clipsToBounds   = YES;
+    self.wantsLayer = YES;
     _showLabel           = YES;
     _barBackgroundColor  = PNLightGrey;
     _labelTextColor      = [NSColor grayColor];
@@ -67,7 +66,7 @@
 - (void)setYValues:(NSArray *)yValues
 {
     _yValues = yValues;
-
+    
     if (_yMaxValue) {
         _yValueMax = _yMaxValue;
     } else {
@@ -83,21 +82,22 @@
     if (_showLabel) {
         //Add y labels
         
-        float yLabelSectionHeight = (self.frame.size.height - _chartMargin * 2 - xLabelHeight) / _yLabelSum;
-        
+        float chartCavanHeight = (self.frame.size.height - _chartMargin * 2 - xLabelHeight);
+        float yLabelSectionHeight = chartCavanHeight / _yLabelSum;
         for (int index = 0; index < _yLabelSum; index++) {
             
             NSString *labelText = _yLabelFormatter((float)_yValueMax * ( (_yLabelSum - index) / (float)_yLabelSum ));
             
             PNChartLabel * label = [[PNChartLabel alloc] initWithFrame:CGRectMake(0,
-                                                                                  yLabelSectionHeight * index + _chartMargin - yLabelHeight/2.0,
+                                                                                  _chartMargin + chartCavanHeight + yLabelHeight - yLabelSectionHeight * index,
+//                                                                                  yLabelSectionHeight * index + _chartMargin - yLabelHeight/2.0,
                                                                                   _yChartLabelWidth,
                                                                                   yLabelHeight)];
             label.font = _labelFont;
             label.textColor = _labelTextColor;
-            [label setTextAlignment:NSTextAlignmentRight];
-            label.text = labelText;
-            
+            [label setAlignment:NSRightTextAlignment];
+            label.stringValue = labelText;
+
             [_yChartLabels addObject:label];
             [self addSubview:label];
             
@@ -113,9 +113,9 @@
 - (void)getYValueMax:(NSArray *)yLabels
 {
     int max = [[yLabels valueForKeyPath:@"@max.intValue"] intValue];
-
+    
     _yValueMax = (int)max;
-
+    
     if (_yValueMax == 0) {
         _yValueMax = _yMinValue;
     }
@@ -142,21 +142,23 @@
                 PNChartLabel * label = [[PNChartLabel alloc] initWithFrame:CGRectMake(0, 0, _xLabelWidth, xLabelHeight)];
                 label.font = _labelFont;
                 label.textColor = _labelTextColor;
-                [label setTextAlignment:NSTextAlignmentCenter];
-                label.text = labelText;
+                [label setAlignment:NSCenterTextAlignment];
+                label.stringValue = labelText;
                 //[label sizeToFit];
                 CGFloat labelXPosition;
                 if (_rotateForXAxisText){
-                    label.transform = CGAffineTransformMakeRotation(M_PI / 4);
+                    [label setFrameRotation:M_PI / 4];
                     labelXPosition = (index *  _xLabelWidth + _chartMargin + _xLabelWidth /1.5);
                 }
                 else{
                     labelXPosition = (index *  _xLabelWidth + _chartMargin + _xLabelWidth /2.0 );
                 }
-                label.center = CGPointMake(labelXPosition,
-                                           self.frame.size.height - xLabelHeight - _chartMargin + label.frame.size.height /2.0 + _labelMarginTop);
+                label.frame = CGRectMake(labelXPosition - _xLabelWidth / 2,
+                                         _chartMargin - xLabelHeight / 2,
+                                         _xLabelWidth,
+                                         xLabelHeight);
                 labelAddCount = 0;
-                
+                label.backgroundColor = [NSColor yellowColor];
                 [_xChartLabels addObject:label];
                 [self addSubview:label];
             }
@@ -203,7 +205,7 @@
             }
             
             bar = [[PNBar alloc] initWithFrame:CGRectMake(barXPosition, //Bar X position
-                                                          self.frame.size.height - chartCavanHeight - xLabelHeight - _chartMargin, //Bar Y position
+                                                          _chartMargin + xLabelHeight,
                                                           barWidth, // Bar witdh
                                                           chartCavanHeight)]; //Bar height
             
@@ -246,77 +248,77 @@
 - (void)strokeChart
 {
     //Add Labels
-
+    
     [self viewCleanupForCollection:_bars];
-
-
+    
+    
     //Update Bar
     
     [self updateBar];
     
     //Add chart border lines
-
+    
     if (_showChartBorder) {
         _chartBottomLine = [CAShapeLayer layer];
         _chartBottomLine.lineCap      = kCALineCapButt;
         _chartBottomLine.fillColor    = [[NSColor whiteColor] CGColor];
         _chartBottomLine.lineWidth    = 1.0;
         _chartBottomLine.strokeEnd    = 0.0;
-
-        UIBezierPath *progressline = [UIBezierPath bezierPath];
-
+        
+        NSBezierPath *progressline = [NSBezierPath bezierPath];
+        
         [progressline moveToPoint:CGPointMake(_chartMargin, self.frame.size.height - xLabelHeight - _chartMargin)];
-        [progressline addLineToPoint:CGPointMake(self.frame.size.width - _chartMargin,  self.frame.size.height - xLabelHeight - _chartMargin)];
-
+        [progressline lineToPoint:CGPointMake(self.frame.size.width - _chartMargin,  self.frame.size.height - xLabelHeight - _chartMargin)];
+        
         [progressline setLineWidth:1.0];
-        [progressline setLineCapStyle:kCGLineCapSquare];
+        [progressline setLineCapStyle:NSSquareLineCapStyle];
         _chartBottomLine.path = progressline.CGPath;
-
-
+        
+        
         _chartBottomLine.strokeColor = PNLightGrey.CGColor;
-
-
+        
+        
         CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
         pathAnimation.duration = 0.5;
         pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         pathAnimation.fromValue = @0.0f;
         pathAnimation.toValue = @1.0f;
         [_chartBottomLine addAnimation:pathAnimation forKey:@"strokeEndAnimation"];
-
+        
         _chartBottomLine.strokeEnd = 1.0;
-
+        
         [self.layer addSublayer:_chartBottomLine];
-
+        
         //Add left Chart Line
-
+        
         _chartLeftLine = [CAShapeLayer layer];
         _chartLeftLine.lineCap      = kCALineCapButt;
         _chartLeftLine.fillColor    = [[NSColor whiteColor] CGColor];
         _chartLeftLine.lineWidth    = 1.0;
         _chartLeftLine.strokeEnd    = 0.0;
-
-        UIBezierPath *progressLeftline = [UIBezierPath bezierPath];
-
+        
+        NSBezierPath *progressLeftline = [NSBezierPath bezierPath];
+        
         [progressLeftline moveToPoint:CGPointMake(_chartMargin, self.frame.size.height - xLabelHeight - _chartMargin)];
-        [progressLeftline addLineToPoint:CGPointMake(_chartMargin,  _chartMargin)];
-
+        [progressLeftline lineToPoint:CGPointMake(_chartMargin,  _chartMargin)];
+        
         [progressLeftline setLineWidth:1.0];
-        [progressLeftline setLineCapStyle:kCGLineCapSquare];
+        [progressLeftline setLineCapStyle:NSSquareLineCapStyle];
         _chartLeftLine.path = progressLeftline.CGPath;
-
-
+        
+        
         _chartLeftLine.strokeColor = PNLightGrey.CGColor;
-
-
+        
+        
         CABasicAnimation *pathLeftAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
         pathLeftAnimation.duration = 0.5;
         pathLeftAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         pathLeftAnimation.fromValue = @0.0f;
         pathLeftAnimation.toValue = @1.0f;
         [_chartLeftLine addAnimation:pathLeftAnimation forKey:@"strokeEndAnimation"];
-
+        
         _chartLeftLine.strokeEnd = 1.0;
-
+        
         [self.layer addSublayer:_chartLeftLine];
     }
 }
@@ -345,7 +347,7 @@
 
 
 #pragma mark - Touch detection
-
+/**
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self touchPoint:touches withEvent:event];
@@ -358,12 +360,12 @@
     //Get the point user touched
     UITouch *touch = [touches anyObject];
     CGPoint touchPoint = [touch locationInView:self];
-    NSView *subview = [self hitTest:touchPoint withEvent:nil];
-
+    UIView *subview = [self hitTest:touchPoint withEvent:nil];
+    
     if ([subview isKindOfClass:[PNBar class]] && [self.delegate respondsToSelector:@selector(userClickedOnBarAtIndex:)]) {
         [self.delegate userClickedOnBarAtIndex:subview.tag];
     }
 }
-
+**/
 
 @end
