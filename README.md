@@ -8,10 +8,9 @@ You can also find [PNChart](https://github.com/kevinzhow/PNChart) or [PNChart-Sw
 
 ## Requirements
 
-PNChart works on iOS 6.0 and later version and is compatible with ARC projects. It depends on the following Apple frameworks, which should already be included with most Xcode templates:
+PNChart works on OS X 10.8 and later version and is compatible with ARC projects. It depends on the following Apple frameworks, which should already be included with most Xcode templates:
 
-* Foundation.framework
-* UIKit.framework
+* Cocoa.framework
 * CoreGraphics.framework
 * QuartzCore.framework
 
@@ -19,15 +18,6 @@ You will need LLVM 3.0 or later in order to build PNChart.
 
 
 ## Usage
-
-### Cocoapods
-
-[CocoaPods](http://cocoapods.org) is the recommended way to add PNChart to your project.
-
-1. Add a pod entry for PNChart to your Podfile `pod 'PNChart', '~> 0.6.0'`
-2. Install the pod(s) by running `pod install`.
-3. Include PNChart wherever you need it with `#import "PNChart.h"`.
-
 
 ### Copy the PNChart folder to your project
 
@@ -221,8 +211,4 @@ lineChart.delegate = self;
 ## License
 
 This code is distributed under the terms and conditions of the [MIT license](LICENSE).
-
-## SpecialThanks
-
-[@lexrus](http://twitter.com/lexrus)  CocoaPods Spec
 
