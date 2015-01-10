@@ -28,7 +28,7 @@ You will need LLVM 3.0 or later in order to build PNChart.
 #import "PNChart.h"
 
 //For Line Chart
-PNLineChart * lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 135.0, SCREEN_WIDTH, 200.0)];
+PNLineChart * lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(20, 100, 360, 200.0)];
 [lineChart setXLabels:@[@"SEP 1",@"SEP 2",@"SEP 3",@"SEP 4",@"SEP 5"]];
 
 // Line Chart No.1
@@ -60,8 +60,8 @@ lineChart.chartData = @[data01, data02];
 ```objective-c
 #import "PNChart.h"
 
-//For BarC hart
-PNBarChart * barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(0, 135.0, SCREEN_WIDTH, 200.0)];
+//For Bar Chart
+PNBarChart * barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(50, 135.0, 320, 200.0)];
 [barChart setXLabels:@[@"SEP 1",@"SEP 2",@"SEP 3",@"SEP 4",@"SEP 5"]];
 [barChart setYValues:@[@1,  @10, @2, @6, @3]];
 [barChart strokeChart];
@@ -75,9 +75,9 @@ PNBarChart * barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(0, 135.0, S
 
 //For Circle Chart
 
-PNCircleChart * circleChart = [[PNCircleChart alloc] initWithFrame:CGRectMake(0, 80.0, SCREEN_WIDTH, 100.0) total:[NSNumber numberWithInt:100] current:[NSNumber numberWithInt:60] clockwise:NO shadow:NO];
-circleChart.backgroundColor = [UIColor clearColor];
+PNCircleChart * circleChart = [[PNCircleChart alloc] initWithFrame:[[PNCircleChart alloc] initWithFrame:CGRectMake(0, 150, CGRectGetWidth(self.view.bounds), 150) total:@100 current:@80 clockwise:YES shadow:YES];
 [circleChart setStrokeColor:PNGreen];
+[circleChart setStrokeColorGradientStart:PNBlue];
 [circleChart strokeChart];
 
 ```
@@ -87,6 +87,7 @@ circleChart.backgroundColor = [UIColor clearColor];
 
 ```objective-c
 # import "PNChart.h"
+
 //For Pie Chart
 NSArray *items = @[[PNPieChartDataItem dataItemWithValue:10 color:PNRed],
                            [PNPieChartDataItem dataItemWithValue:20 color:PNBlue description:@"WWDC"],
@@ -95,13 +96,14 @@ NSArray *items = @[[PNPieChartDataItem dataItemWithValue:10 color:PNRed],
 
 
 
-PNPieChart *pieChart = [[PNPieChart alloc] initWithFrame:CGRectMake(40.0, 155.0, 240.0, 240.0) items:items];
-pieChart.descriptionTextColor = [UIColor whiteColor];
-pieChart.descriptionTextFont  = [UIFont fontWithName:@"Avenir-Medium" size:14.0];
+PNPieChart *pieChart = [[PNPieChart alloc] initWithFrame:CGRectMake(100, 100, 200.0, 200.0) items:items];
+pieChart.descriptionTextColor = [NSColor whiteColor];
+pieChart.descriptionTextFont  = [NSFont fontWithName:@"Avenir-Medium" size:14.0];
 [pieChart strokeChart];
+
 ```
 
-![Catter Chart](https://raw.githubusercontent.com/tracy-e/PNChart/master/Images/CatterChart.png)
+![Scatter Chart](https://raw.githubusercontent.com/tracy-e/PNChart/master/Images/ScatterChart.png)
 
 ```objective-c
 # import "PNChart.h"
