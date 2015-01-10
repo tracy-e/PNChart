@@ -121,7 +121,7 @@
                                                       clockwise:YES
                                                          shadow:YES];
         [self.circleChart setStrokeColor:PNGreen];
-        [self.circleChart setStrokeColorGradientStart:[NSColor blueColor]];
+        [self.circleChart setStrokeColorGradientStart:PNBlue];
         [self.circleChart strokeChart];
         
         [self.view addSubview:self.circleChart];
