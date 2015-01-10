@@ -9,7 +9,7 @@ You can also find [PNChart](https://github.com/kevinzhow/PNChart) or [PNChart-Sw
 
 ## Requirements
 
-PNChart works on OS X 10.8 and later version and is compatible with ARC projects. It depends on the following Apple frameworks, which should already be included with most Xcode templates:
+PNChart works on OS X 10.10 and later version and is compatible with ARC projects. It depends on the following Apple frameworks, which should already be included with most Xcode templates:
 
 * Cocoa.framework
 * CoreGraphics.framework
@@ -101,7 +101,7 @@ pieChart.descriptionTextFont  = [UIFont fontWithName:@"Avenir-Medium" size:14.0]
 [pieChart strokeChart];
 ```
 
-[![](https://dl.dropboxusercontent.com/u/1599662/scatter.png)](https://dl.dropboxusercontent.com/u/1599662/scatter.png)
+![Catter Chart](https://raw.githubusercontent.com/tracy-e/PNChart/master/Images/CatterChart.png)
 
 ```objective-c
 # import "PNChart.h"
