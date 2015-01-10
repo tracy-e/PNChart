@@ -112,14 +112,15 @@ displayCountingLabel:(BOOL)displayCountingLabel
         [self.layer addSublayer:_circle];
         [self.layer addSublayer:_circleBackground];
 
+        NSFont *font = [NSFont boldSystemFontOfSize:16.0f];
+        CGFloat height = font.pointSize;
         _countingLabel = [[PNChartLabel alloc] initWithFrame:CGRectZero];
-        [_countingLabel setFont:[NSFont boldSystemFontOfSize:16.0f]];
+        [_countingLabel setFont:font];
         [_countingLabel setTextColor:[NSColor grayColor]];
-        [_countingLabel setBackgroundColor:[NSColor redColor]];
         _countingLabel.frame = CGRectMake(CGRectGetWidth(self.bounds) / 2 - 50.0f,
-                                          CGRectGetHeight(self.bounds) / 2 - 25.0f,
+                                          (CGRectGetHeight(self.bounds) - height) / 2,
                                           100.0,
-                                          50.0);
+                                          height);
         if (_displayCountingLabel) {
             [self addSubview:_countingLabel];
         }

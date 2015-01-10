@@ -90,7 +90,7 @@
 
         while (num > 0)
         {
-            PNChartLabel *label = [[PNChartLabel alloc] initWithFrame:CGRectMake(0.0, (NSInteger)(_chartMargin + (index + 1) * yStepHeight), (NSInteger)_chartMargin, (NSInteger)_yLabelHeight)];
+            PNChartLabel *label = [[PNChartLabel alloc] initWithFrame:CGRectMake(0.0, (NSInteger)(_chartMargin + (index + 1) * yStepHeight - _yLabelHeight / 2.0), (NSInteger)_chartMargin, (NSInteger)_yLabelHeight)];
             [label setAlignment:NSRightTextAlignment];
             label.stringValue = [NSString stringWithFormat:yLabelFormat, _yValueMin + (yStep * index)];
             [self setCustomStyleForYLabel:label];
@@ -135,7 +135,7 @@
 
             NSInteger x = 2 * _chartMargin +  (index * _xLabelWidth) - (_xLabelWidth / 2);
 
-            PNChartLabel *label = [[PNChartLabel alloc] initWithFrame:CGRectMake(x, 0, (NSInteger)_xLabelWidth, (NSInteger)_chartMargin)];
+            PNChartLabel *label = [[PNChartLabel alloc] initWithFrame:CGRectMake(x, 0, (NSInteger)_xLabelWidth, (NSInteger)_chartMargin - 5)];
             label.stringValue = labelText;
             [self setCustomStyleForXLabel:label];
             [self addSubview:label];
@@ -650,7 +650,7 @@
     _pathPoints = [[NSMutableArray alloc] init];
 
     _yLabelNum = 5.0;
-    _yLabelHeight = [[[[PNChartLabel alloc] init] font] pointSize];
+    _yLabelHeight = 13;
 
     _chartMargin = 40;
 

@@ -15,16 +15,16 @@
     
     if (self) {
         self.font               = [NSFont boldSystemFontOfSize:10.0f];
-        self.backgroundColor    = [NSColor clearColor];
         self.alignment          = NSCenterTextAlignment;
         self.drawsBackground    = NO;
         self.editable           = NO;
-        self.bordered           = NO;
         self.bezeled            = NO;
         self.selectable         = NO;
     }
     
     return self;
 }
+
+
 
 @end

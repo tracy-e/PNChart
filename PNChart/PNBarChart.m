@@ -90,7 +90,6 @@
             
             PNChartLabel * label = [[PNChartLabel alloc] initWithFrame:CGRectMake(0,
                                                                                   _chartMargin + chartCavanHeight + yLabelHeight - yLabelSectionHeight * index,
-//                                                                                  yLabelSectionHeight * index + _chartMargin - yLabelHeight/2.0,
                                                                                   _yChartLabelWidth,
                                                                                   yLabelHeight)];
             label.font = _labelFont;
@@ -158,7 +157,6 @@
                                          _xLabelWidth,
                                          xLabelHeight);
                 labelAddCount = 0;
-                label.backgroundColor = [NSColor yellowColor];
                 [_xChartLabels addObject:label];
                 [self addSubview:label];
             }

@@ -4,7 +4,8 @@
 
 You can also find [PNChart](https://github.com/kevinzhow/PNChart) or [PNChart-Swift](https://github.com/kevinzhow/PNChart-Swift) for iOS (CocoaTouch).
 
-[![](https://dl.dropboxusercontent.com/u/1599662/pnchart.gif)](https://dl.dropboxusercontent.com/u/1599662/pnchart.gif)
+![PNChart](https://raw.githubusercontent.com/tracy-e/PNChart/master/Images/PNChart.gif)
+
 
 ## Requirements
 

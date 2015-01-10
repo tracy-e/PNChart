@@ -11,7 +11,7 @@
 
 #define xLabelMargin 15
 #define yLabelMargin 15
-#define yLabelHeight 11
+#define yLabelHeight 13
 #define xLabelHeight 20
 
 typedef NSString *(^PNYLabelFormatter)(CGFloat yLabelValue);

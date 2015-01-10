@@ -129,6 +129,7 @@
 	_currentTotal += currentDataItem.value;
 	
     PNChartLabel *descriptionLabel = [[PNChartLabel alloc] initWithFrame:CGRectMake(0, 0, 100, 80)];
+    descriptionLabel.alignment = NSLeftTextAlignment;
     NSString *titleText = currentDataItem.textDescription;
     if(!titleText){
         titleText = [NSString stringWithFormat:@"%.0f%%",currentDataItem.value/ _total * 100];
@@ -144,20 +145,22 @@
                                  _outerCircleRadius + distance * cos(rad));
     
     descriptionLabel.font = _descriptionTextFont;
-//    CGSize labelSize = [descriptionLabel.text sizeWithAttributes:@{NSFontAttributeName:descriptionLabel.font}];
-    //TODO:
-    CGSize labelSize = CGSizeMake(80, 40);
-    descriptionLabel.frame = CGRectMake(
-                             descriptionLabel.frame.origin.x, descriptionLabel.frame.origin.y,
-                             descriptionLabel.frame.size.width, labelSize.height);
+    
+    NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    style.alignment = NSCenterTextAlignment;
+    CGSize labelSize = [descriptionLabel.stringValue sizeWithAttributes:@{NSFontAttributeName:descriptionLabel.font,
+                                                                          NSParagraphStyleAttributeName: style}];
+    labelSize.width += 10;
     descriptionLabel.usesSingleLineMode = NO;
     descriptionLabel.textColor = _descriptionTextColor;
     descriptionLabel.layer.shadowColor = [_descriptionTextShadowColor CGColor];
     descriptionLabel.layer.shadowOffset = _descriptionTextShadowOffset;
     descriptionLabel.alignment = NSCenterTextAlignment;
-    descriptionLabel.frame = CGRectMake(center.x - labelSize.width / 2, center.y - labelSize.height / 2, labelSize.width, labelSize.height);
+    descriptionLabel.frame = CGRectMake(center.x - labelSize.width / 2,
+                                        center.y - labelSize.height / 2,
+                                        labelSize.width,
+                                        labelSize.height);
     descriptionLabel.alphaValue = 0;
-    descriptionLabel.backgroundColor = [NSColor clearColor];
 	return descriptionLabel;
 }
 

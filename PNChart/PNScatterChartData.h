@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 kevinzhow. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
 typedef NS_ENUM(NSUInteger, PNScatterChartPointStyle) {
     PNScatterChartPointStyleCircle = 0,
