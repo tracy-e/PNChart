@@ -13,7 +13,7 @@
 #define ARC4RANDOM_MAX 0x100000000
 
 
-@interface ChartViewController ()
+@interface ChartViewController ()<PNChartDelegate>
 
 @property (nonatomic) PNLineChart *lineChart;
 @property (nonatomic) PNCircleChart *circleChart;
@@ -83,7 +83,7 @@
         
         self.lineChart.chartData = @[data01, data02];
         [self.lineChart strokeChart];
-//        self.lineChart.delegate = self;
+        self.lineChart.delegate = self;
         
         [self.view addSubview:self.lineChart];
         
@@ -107,7 +107,7 @@
         
         [self.barChart strokeChart];
         
-//        self.barChart.delegate = self;
+        self.barChart.delegate = self;
         
         [self.view addSubview:self.barChart];
         
@@ -164,17 +164,47 @@
         
         [self.scatterChart setup];
         self.scatterChart.chartData = @[data01];
+        
         /***
          this is for drawing line to compare
          CGPoint start = CGPointMake(20, 35);
          CGPoint end = CGPointMake(80, 45);
          [self.scatterChart drawLineFromPoint:start ToPoint:end WithLineWith:2 AndWithColor:PNBlack];
          ***/
-//        self.scatterChart.delegate = self;
+        self.scatterChart.delegate = self;
 
         [self.view addSubview:self.scatterChart];
 
     }
+}
+
+- (void)userClickedOnLineKeyPoint:(CGPoint)point lineIndex:(NSInteger)lineIndex pointIndex:(NSInteger)pointIndex{
+    NSLog(@"Click Key on line %f, %f line index is %d and point index is %d",point.x, point.y,(int)lineIndex, (int)pointIndex);
+}
+
+- (void)userClickedOnLinePoint:(CGPoint)point lineIndex:(NSInteger)lineIndex{
+    NSLog(@"Click on line %f, %f, line index is %d",point.x, point.y, (int)lineIndex);
+}
+
+- (void)userClickedOnBarAtIndex:(NSInteger)barIndex
+{
+    
+    NSLog(@"Click on bar %@", @(barIndex));
+    
+    PNBar * bar = [self.barChart.bars objectAtIndex:barIndex];
+    
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    
+    animation.fromValue = @1.0;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    animation.toValue = @1.1;
+    animation.duration = 0.2;
+    animation.repeatCount = 0;
+    animation.autoreverses = YES;
+    animation.removedOnCompletion = YES;
+    animation.fillMode = kCAFillModeForwards;
+    
+    [bar.layer addAnimation:animation forKey:@"Float"];
 }
 
 - (IBAction)changeValue:(id)sender {

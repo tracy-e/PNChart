@@ -345,25 +345,18 @@
 
 
 #pragma mark - Touch detection
-/**
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [self touchPoint:touches withEvent:event];
-    [super touchesBegan:touches withEvent:event];
-}
-
-
-- (void)touchPoint:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    //Get the point user touched
-    UITouch *touch = [touches anyObject];
-    CGPoint touchPoint = [touch locationInView:self];
-    UIView *subview = [self hitTest:touchPoint withEvent:nil];
-    
-    if ([subview isKindOfClass:[PNBar class]] && [self.delegate respondsToSelector:@selector(userClickedOnBarAtIndex:)]) {
-        [self.delegate userClickedOnBarAtIndex:subview.tag];
+- (void)mouseDown:(NSEvent *)theEvent {
+    CGPoint pointInWindow = [theEvent locationInWindow];
+    CGPoint touchPoint = [self convertPoint:pointInWindow fromView:nil];
+    for (PNBar *bar in _bars) {
+        if (CGRectContainsPoint(bar.frame, touchPoint)) {
+            if ([self.delegate respondsToSelector:@selector(userClickedOnBarAtIndex:)]) {
+                [self.delegate userClickedOnBarAtIndex:bar.tag];
+                break;
+            }
+        }
     }
+    [super mouseDown:theEvent];
 }
-**/
 
 @end

@@ -168,31 +168,28 @@
 }
 
 #pragma mark - Touch at point
-/**
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [self touchPoint:touches withEvent:event];
-    [self touchKeyPoint:touches withEvent:event];
+- (void)mouseDown:(NSEvent *)theEvent {
+    [self touchEvent:theEvent];
+    [self touchKeyEvent:theEvent];
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [self touchPoint:touches withEvent:event];
-    [self touchKeyPoint:touches withEvent:event];
+- (void)mouseDragged:(NSEvent *)theEvent {
+    [self touchEvent:theEvent];
+    [self touchKeyEvent:theEvent];
 }
 
-- (void)touchPoint:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchEvent:(NSEvent *)event
 {
     // Get the point user touched
-    UITouch *touch = [touches anyObject];
-    CGPoint touchPoint = [touch locationInView:self];
+    CGPoint pointInWindow = [event locationInWindow];
+    CGPoint touchPoint = [self convertPoint:pointInWindow fromView:nil];
 
     for (NSInteger p = _pathPoints.count - 1; p >= 0; p--) {
         NSArray *linePointsArray = _pathPoints[p];
 
         for (int i = 0; i < linePointsArray.count - 1; i += 1) {
-            CGPoint p1 = [linePointsArray[i] CGPointValue];
-            CGPoint p2 = [linePointsArray[i + 1] CGPointValue];
+            CGPoint p1 = [linePointsArray[i] pointValue];
+            CGPoint p2 = [linePointsArray[i + 1] pointValue];
 
             // Closest distance from point to line
             float distance = fabsf(((p2.x - p1.x) * (touchPoint.y - p1.y)) - ((p1.x - touchPoint.x) * (p1.y - p2.y)));
@@ -214,18 +211,18 @@
     }
 }
 
-- (void)touchKeyPoint:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchKeyEvent:(NSEvent *)event
 {
     // Get the point user touched
-    UITouch *touch = [touches anyObject];
-    CGPoint touchPoint = [touch locationInView:self];
+    CGPoint pointInWindow = [event locationInWindow];
+    CGPoint touchPoint = [self convertPoint:pointInWindow fromView:nil];
 
     for (NSInteger p = _pathPoints.count - 1; p >= 0; p--) {
         NSArray *linePointsArray = _pathPoints[p];
 
         for (int i = 0; i < linePointsArray.count - 1; i += 1) {
-            CGPoint p1 = [linePointsArray[i] CGPointValue];
-            CGPoint p2 = [linePointsArray[i + 1] CGPointValue];
+            CGPoint p1 = [linePointsArray[i] pointValue];
+            CGPoint p2 = [linePointsArray[i + 1] pointValue];
 
             float distanceToP1 = fabsf(hypot(touchPoint.x - p1.x, touchPoint.y - p1.y));
             float distanceToP2 = hypot(touchPoint.x - p2.x, touchPoint.y - p2.y);
@@ -242,7 +239,8 @@
         }
     }
 }
-**/
+
+
 #pragma mark - Draw Chart
 
 - (void)strokeChart
