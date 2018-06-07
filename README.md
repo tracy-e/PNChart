@@ -1,4 +1,4 @@
-#PNChart
+# PNChart
 
 **PNChart** for OS X (Cocoa).
 
